@@ -1,4 +1,4 @@
-# speech-to-text-python-webapp
+# Speech-to-Text Python Web App
 
 Sample for a simple speech-to-text Python web app for hosting on App Service.
 
@@ -10,23 +10,7 @@ Sample for a simple speech-to-text Python web app for hosting on App Service.
 2. Create a new Speech Service resource.
 3. Note down the `Subscription Key` and `Service Region`.
 
-### 2. Set Environment Variables
-
-Set the following environment variables in your App Service's Application Settings:
-
-- `AZURE_SPEECH_KEY`: Your Azure Speech Service subscription key.
-- `AZURE_SERVICE_REGION`: Your Azure Speech Service region.
-
-### 3. Configure App Service
-
-1. Create a new Linux App Service.
-2. Enable WebSockets (WebSockets are always enabled for Linux App Services).
-3. Set the startup command to:
-   ```
-   gunicorn --bind=0.0.0.0:8000 --worker-class=geventwebsocket.gunicorn.workers.GeventWebSocketWorker --timeout=600 app:app
-   ```
-
-### 4. Quick deploy using Visual Studio Code
+### 2. Quick deploy using Visual Studio Code
 
 1. Install the [Azure App Service extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice) for Visual Studio Code.
 2. Open your project in Visual Studio Code.
@@ -35,12 +19,28 @@ Set the following environment variables in your App Service's Application Settin
 5. Follow the prompts to create a new web app:
    - Select your subscription.
    - Enter a globally unique name for your web app.
-   - Select "Python 3.8" as the runtime stack.
+   - Select "Python 3.9" as the runtime stack.
    - Select "Linux" as the operating system.
 6. Once the web app is created, right-click on it in the Azure panel and select "Deploy to Web App...".
 7. Select your project folder when prompted.
 8. Confirm the deployment when prompted.
 
+### 3. Set Environment Variables
+
+Set the following environment variables in your App Service's Application Settings:
+
+1. In the Azure Portal, navigate to your App Service.
+2. Under "Settings", select "Configuration".
+3. Click on "New application setting" and add the following keys and values:
+- `AZURE_SPEECH_KEY`: Your Azure Speech Service subscription key.
+- `AZURE_SERVICE_REGION`: Your Azure Speech Service region.
+
+### 4. Configure App Service
+
+1. Set the startup command to:
+   ```
+   gunicorn --bind=0.0.0.0:8000 --worker-class=geventwebsocket.gunicorn.workers.GeventWebSocketWorker --timeout=600 app:app
+   ```
 
 ### 6. Running Locally
 
