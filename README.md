@@ -1,4 +1,4 @@
-# Speech-to-Text Python Web App
+# Azure Speech-to-Text Python Web App
 
 Sample for a simple speech-to-text Python web app for hosting on App Service.
 
