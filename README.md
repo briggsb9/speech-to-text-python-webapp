@@ -4,6 +4,8 @@ Sample for a simple speech-to-text Python web app for hosting on App Service.
 
 This sample demonstrates how to create a web application that uses Azure's Speech Service to convert speech to text. The app is built using Flask and can be deployed on Azure App Service leveraging web sockets for real-time audio streaming.
 
+![Speech-to-Text Web App](images/image.png)
+
 ## Setup Instructions
 
 ### 1. Create an Azure Speech Service
@@ -56,9 +58,15 @@ Set the following environment variables in your App Service's Application Settin
 ### 6. Testing the App
 1. Open your web browser and navigate to the URL of your deployed App Service.
 2. You should see the web app interface.
+
+    ![Speech-to-Text Web App Interface](images/image.png)
+
 3. Click on the "Start Recording" button to begin recording your speech.
 4. Speak into your microphone and click "Stop Recording" when
     you're done.
+
+
+
 
 ### 7. Running Locally
 
