@@ -2,9 +2,47 @@
 
 Sample for a simple speech-to-text Python web app for hosting on App Service.
 
-This sample demonstrates how to create a web application that uses Azure's Speech Service to convert speech to text. The app is built using Flask and can be deployed on Azure App Service leveraging web sockets for real-time audio streaming.
+This sample demonstrates how to create a web application that uses Azure's Speech Service to convert speech to text. The app is built using Flask and can be deployed on Azure App Service leveraging websockets for real-time audio streaming.
 
 ![Speech-to-Text Web App](images/image.png)
+
+## Architecture Overview
+The architecture of the application consists of the following components:
+- **Flask Web App**: The main application that handles user interactions and manages the audio recording and transcription process.
+- **Azure Speech Service**: The service that performs the speech-to-text conversion.
+- **WebSocket**: Used for real-time communication between the client and server, allowing for continuous audio streaming and transcription.
+- **HTML/CSS/JavaScript**: The frontend of the application, providing a user interface for recording and displaying transcriptions.
+- **Gunicorn**: A Python WSGI HTTP server for UNIX, used to serve the Flask application in production.
+- **Gevent**: A coroutine-based Python networking library that provides a high-level synchronous API on top of the libev or libuv event loop.
+- **Gevent WebSocket**: A library that provides WebSocket support for gevent, allowing for real-time communication between the client and server.
+- **Azure App Service**: The hosting platform for the web application, providing a scalable and managed environment for running the app.
+
+### Workflow
+
+1. **Initialization**:
+    - The server loads Azure Speech Service credentials from environment variables.
+    - When a user visits the site, Flask serves the HTML interface.
+    - Client establishes a WebSocket connection to the server.
+
+2. **When User Clicks "Start Recording"**:
+    - Client requests microphone access.
+    - Client sends a `start_transcription` event to the server.
+    - Server initializes the Azure Speech recognizer and push stream.
+    - Client begins capturing audio through the browser's microphone API.
+
+3. **During Recording**:
+    - Client processes audio to 16kHz, 16-bit mono PCM format.
+    - Audio chunks are base64 encoded and streamed to the server via WebSockets.
+    - Server decodes the audio and feeds it to Azure Speech Service.
+    - Interim results are sent back to client as `interim_transcription` events.
+    - Final results are sent as `transcription` events.
+
+4. **When User Clicks "Stop Recording"**:
+    - Client stops audio capture.
+    - Client sends `stop_transcription` event.
+    - Server stops the recognizer and closes the push stream.
+    - Resources are cleaned up to prevent memory leaks.
+
 
 ## Setup Instructions
 
