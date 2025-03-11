@@ -37,7 +37,9 @@ Set the following environment variables in your App Service's Application Settin
 
 ### 4. Configure App Service
 
-1. Set the startup command to:
+1. In the Azure Portal, navigate to your App Service.
+2. Under "Settings", select "Configuration" and then "General settings".
+4. Set the startup command in the app service general settings to:
    ```
    gunicorn --bind=0.0.0.0:8000 --worker-class=geventwebsocket.gunicorn.workers.GeventWebSocketWorker --timeout=600 app:app
    ```
@@ -45,9 +47,51 @@ Set the following environment variables in your App Service's Application Settin
 ### 6. Running Locally
 
 To run the app locally, create a virtual environment and use the following command:
-```
-python app.py
-```
+1. Create a virtual environment:
+    ```bash
+    python -m venv venv
+    ```
+2. Activate the virtual environment:
+
+    Bash
+    
+    ```bash
+    source venv/bin/activate
+    ```
+
+    Powershell
+
+    ```powershell
+    venv\Scripts\activate
+    ```
+
+2. Install the required packages:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Set the environment variables in your local environment:
+
+    Bash
+
+    ```bash
+    export AZURE_SPEECH_KEY=your_speech_key
+    export AZURE_SERVICE_REGION=your_service_region
+    ```
+
+    Powershell
+
+    ```Powershell
+    $env:AZURE_SPEECH_KEY = "your_speech_key"
+    $env:AZURE_SERVICE_REGION = "your_service_region"
+    ```
+
+4. Run the app:
+    ```bash
+    python app.py
+    ```
+5. Open your browser and navigate to `http://localhost:5000` to access the app.
+
 
 ### 7. Accessing the App
 
